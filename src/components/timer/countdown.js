@@ -1,7 +1,8 @@
-import * as S from "./timer.styles";
-import { CountdownCircleTimer } from "react-countdown-circle-timer";
-import React, {useState} from "react";
-import moment from "moment";
+import React, { useState } from 'react';
+import * as S from './timer.styles';
+
+import { CountdownCircleTimer } from 'react-countdown-circle-timer';
+import moment from 'moment';
 
 const texts = {
   start: 'Start',
@@ -43,7 +44,7 @@ export const Countdown = ({
         ['#F7B801', 0.33],
         ['#A30000', 0.33],
       ]}
-      trailColor="#333"
+      trailColor='#333'
       strokeWidth={10}
       size={520}
     >
@@ -55,15 +56,15 @@ export const Countdown = ({
         const formattedSeconds = seconds < 10 ? `0${seconds}` : seconds;
         return (<S.TimerWrapper>
           <S.Time>
-            <div className="minutes">
+            <div className='minutes'>
               {!isEditMode
-                ? <S.Input type="text" value={formattedMinutes} disabled/>
-                : <S.Input type="number" value={editedTime} onChange={handleTimeChange}/>
+                ? <S.Input type='text' value={formattedMinutes} disabled/>
+                : <S.Input type='number' value={editedTime} onChange={handleTimeChange}/>
               }
             </div>
-            <div className="colon">:</div>
-            <div className="seconds">
-              <S.Input type="text" value={formattedSeconds} disabled/>
+            <div className='colon'>:</div>
+            <div className='seconds'>
+              <S.Input type='text' value={formattedSeconds} disabled/>
             </div>
           </S.Time>
           {isRunning

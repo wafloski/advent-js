@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const OuterWrapper = styled.div`
   align-items: center;
