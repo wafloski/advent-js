@@ -1,9 +1,6 @@
 import styled from 'styled-components';
 
 export const OuterWrapper = styled.div`
-  background: url('images/bg__left.svg') left 10% no-repeat,
-  url('images/bg__top-right.svg') right top no-repeat,
-  #EFF0F6 url('images/bg__btm-right.svg') right bottom no-repeat;
   font-family: 'Poppins', sans-serif;
   margin: 0;
   padding: 0;
@@ -25,10 +22,10 @@ export const Panel = styled.div`
   border-radius: 25px;
   box-sizing: border-box;
   box-shadow: 0 0 70px #C7CBE3;
-  height: 875px;
-  padding-top: 50px;
   overflow-y: scroll;
+  overflow-x: hidden;
   width: 375px;
+  height: 95vh;
 `;
 
 export const Title = styled.h1`
@@ -101,10 +98,6 @@ export const List = styled.ul`
     .price {
       margin: 0 0 20px 0;
       padding: 0;
-      
-      .little-price {
-        font-size: 14px;
-      }
     }
   }
   
@@ -113,13 +106,6 @@ export const List = styled.ul`
     line-height: 20px;
     margin: 0 0 16px 0;
     padding: 0;
-  }
-
-  .price,
-  .subtotal{
-    font-size: 2rem;
-    line-height: 1;
-    font-weight: bold;
   }
 
   button {
@@ -137,6 +123,147 @@ export const List = styled.ul`
     align-items: center;
     justify-content: center;
     gap: 10px;
+    transition: .25s;
+    
+    &:not(.in-cart):hover {
+      opacity: .5;
+    }
+    
+    &.in-cart {
+      background-color: green;
+      cursor: auto;
+    }
   }
 `;
 
+export const Total = styled.div`
+  padding: 35px 30px;
+  
+  .line-item {
+    display: flex;
+    align-items: flex-end;
+    text-align: right;
+    margin-bottom: 20px;
+  }
+
+  .line-item .label {
+    font-size: 1rem;
+    font-weight: bold;
+    width: 60%;
+  }
+
+  .line-item .amount {
+    width: 40%;
+  }
+`;
+
+export const Price = styled.span`
+  font-size: 2rem;
+  line-height: 1;
+  font-weight: bold;
+  margin-left: auto;
+  margin-bottom: 10px;
+  display: inline-block;
+`;
+
+export const LittlePricePrefix = styled.span`
+  font-size: 14px;
+`;
+
+export const Cart = styled.ul`
+  list-style-type: none;
+  padding: 0;
+  margin: 0 30px 0 25px;
+
+  li {
+    display: grid;
+    grid-template-areas: "plate content content"
+    "plate quantity price";
+    border-bottom: 1px solid #D7D7F9;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+
+    &:last-child {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+  }
+
+  .menu-item {
+    margin-bottom: 5px;
+  }
+
+  .price {
+    margin: 0 0 16px 0;
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+
+  .plate {
+    position: relative;
+    height: 64px;
+    width: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    grid-area: plate;
+
+    img {
+      height: 64px;
+      width: 64px;
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 1;
+    }
+  }
+
+  .content {
+    grid-area: content;
+  }
+  
+  .quantity {
+    background: black;
+    color: white;
+    font-size: 1rem;
+    grid-area: quantity;
+    font-weight: bold;
+    border-radius: 50%;
+    height: 32px;
+    width: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+  }
+
+  .quantity__wrapper {
+    display: flex;
+    gap: 10px;
+  }
+
+  .quantity__wrapper .quantity {
+    background: none;
+    color: black;
+  }
+
+  .decrease,
+  .increase {
+    padding: 0;
+    height: 32px;
+    width: 32px;
+    display: block;
+    background: #6B00F5;
+    font-weight: bold;
+    color: #fff;
+    transition: .25s;
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+  }
+
+  .decrease:hover,
+  .increase:hover {
+    opacity: .5;
+  }
+`;
