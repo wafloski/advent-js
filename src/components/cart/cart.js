@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 
 import * as S from './cart.styles';
 
 import { menuItems } from './mockedMenuItems';
 
-import { MenuItem } from "./menuItem";
-import {CartItem} from "./cartItem";
+import { MenuItem } from './menuItem';
+import { CartItem } from './cartItem';
 
 const texts = {
   title: 'To Go Menu',
@@ -15,18 +15,51 @@ const texts = {
   total: 'Total: '
 }
 
-export const formatPrice = (price) => {
-  return <><S.LittlePricePrefix>PLN </S.LittlePricePrefix>{price/100}</>;
-};
+const TAX_RATE = 0.08;
+
+export const formatPrice = (price) => <><S.LittlePricePrefix>PLN </S.LittlePricePrefix>{price/100}</>;
 
 const Cart = () => {
-  const [total, setTotal] = useState(0);
   const [subtotal, setSubtotal] = useState(0);
   const [tax, setTax] = useState(0);
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState(menuItems);
 
-  const handleAdd = (item) => {
-    setCart([item, ...cart]);
+  const countSubtotal = useCallback(() => {
+    const subtotal = cart.reduce((acc, item) => {
+      return acc + (item.count * item.price);
+    }, 0);
+    setSubtotal(subtotal);
+    setTax((Math.round((TAX_RATE * subtotal * 100) / 100)));
+  }, [cart]);
+
+  useEffect(() => {
+    countSubtotal();
+  }, [countSubtotal]);
+
+  const handleAdd = (itemId) => {
+    setCart(cart.map(item => {
+      if (item.id === itemId) {
+        return ({
+          ...item,
+          count: item.count + 1,
+        });
+      } else {
+        return item;
+      }
+    }));
+  };
+
+  const handleSubtract = (itemId) => {
+    setCart(cart.map(item => {
+      if (item.id === itemId) {
+        return ({
+          ...item,
+          count: item.count - 1
+        });
+      } else {
+        return item;
+      }
+    }));
   };
 
   return (
@@ -35,9 +68,9 @@ const Cart = () => {
         <S.Panel>
           <S.Title>{texts.title}</S.Title>
           <S.List className='list menu'>
-            {menuItems.map((item, index) => (
+            {cart.map((item, index) => (
               <li key={index}>
-                <MenuItem item={item} addProduct={handleAdd}/>
+                <MenuItem item={item} handleAdd={handleAdd} />
               </li>
             ))}
           </S.List>
@@ -47,24 +80,24 @@ const Cart = () => {
           {cart.length ?
             <S.Cart className='cart-summary'>
               {cart.map((item, index) => (
-                <li key={index}>
-                  <CartItem item={item} />
+                item.count > 0 && <li key={index}>
+                  <CartItem item={item} handleAdd={handleAdd} handleSubtract={handleSubtract}/>
                 </li>
               ))}
             </S.Cart> : null
           }
           <S.Total>
-            <div className="line-item">
-              <div className="label">{texts.subtotal}</div>
+            <div className='line-item'>
+              <div className='label'>{texts.subtotal}</div>
               <S.Price>{formatPrice(subtotal)}</S.Price>
             </div>
-            <div className="line-item">
-              <div className="label">{texts.tax}</div>
+            <div className='line-item'>
+              <div className='label'>{texts.tax}</div>
               <S.Price>{formatPrice(tax)}</S.Price>
             </div>
-            <div className="line-item">
-              <div className="label">{texts.total}</div>
-              <S.Price>{formatPrice(total)}</S.Price>
+            <div className='line-item'>
+              <div className='label'>{texts.total}</div>
+              <S.Price>{formatPrice(subtotal + tax)}</S.Price>
             </div>
           </S.Total>
         </S.Panel>

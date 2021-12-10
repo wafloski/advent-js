@@ -1,33 +1,36 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { formatPrice } from "./cart";
 
 import * as S from './cart.styles';
 
-export const CartItem = ({ item }) => {
-  const [quantity, setQuantity] = useState(1);
+export const CartItem = ({ item, handleAdd, handleSubtract }) => {
+  const { image, count, name, price, alt, id } = item;
+
+  const addItem = () => handleAdd(id);
+  const subtractItem = () => handleSubtract(id);
 
   return (
     <>
       <div className="plate">
-        <img src={`/images/${item.image}`} alt="Fish Sticks and Fries" className="plate"/>
-        <div className="quantity">{quantity}</div>
+        <img src={`/images/${image}`} alt={alt} className="plate"/>
+        <div className="quantity">{count}</div>
       </div>
       <div className="content">
-        <p className="menu-item">{item.name}</p>
-        <p className="price">{formatPrice(item.price)}</p>
+        <p className="menu-item">{name}</p>
+        <p className="price">{formatPrice(price)}</p>
       </div>
       <div className="quantity__wrapper">
-        <button className="decrease">
+        <button className="decrease" onClick={subtractItem}>
           -
         </button>
-        <div className="quantity">1</div>
-        <button className="increase">
+        <div className="quantity">{count}</div>
+        <button className="increase" onClick={addItem}>
           +
         </button>
       </div>
       <S.Price>
-        {formatPrice(quantity * item.price)}
+        {formatPrice(count * price)}
       </S.Price>
     </>
   )

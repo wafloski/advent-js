@@ -1,27 +1,25 @@
-import React, { useState } from 'react';
+import React from 'react';
 import * as S from './cart.styles';
 
 import { formatPrice } from './cart';
 
-export const MenuItem = ({ item, addProduct }) => {
-  const [isInCart, setInCart] = useState(false);
+export const MenuItem = ({ item, handleAdd }) => {
+  const { image, alt, name, price, count, id } = item;
 
-  const handleAdd = () => {
-    addProduct(item);
-    setInCart(true);
-  }
+  const isInCart = Boolean(count > 0);
+  const addHandler = () => handleAdd(id);
 
   return (
     <>
       <div className='plate'>
-        <img src={`/images/${item.image}`} alt={item.alt} className='plate'/>
+        <img src={`/images/${image}`} alt={alt} className='plate'/>
       </div>
       <div className='content'>
-        <div className='title'>{item.name}</div>
-        <S.Price>{formatPrice(item.price)}</S.Price>
+        <div className='title'>{name}</div>
+        <S.Price>{formatPrice(price)}</S.Price>
         {isInCart
           ? <button className='in-cart'>In cart</button>
-          : <button className='add' onClick={handleAdd}>Add to Cart</button>
+          : <button className='add' onClick={addHandler}>Add to Cart</button>
         }
       </div>
     </>

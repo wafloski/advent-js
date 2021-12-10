@@ -1,5 +1,6 @@
 export const menuItems = [
   {
+    id: 1,
     name: 'French Fries with Ketchup',
     price: 223,
     image: 'plate__french-fries.png',
@@ -7,6 +8,7 @@ export const menuItems = [
     count: 0
   },
   {
+    id: 2,
     name: 'Salmon and Vegetables',
     price: 512,
     image: 'plate__salmon-vegetables.png',
@@ -14,6 +16,7 @@ export const menuItems = [
     count: 0
   },
   {
+    id: 3,
     name: 'Spaghetti Meat Sauce',
     price: 782,
     image: 'plate__spaghetti-meat-sauce.png',
@@ -21,6 +24,7 @@ export const menuItems = [
     count: 0
   },
   {
+    id: 4,
     name: 'Bacon, Eggs, and Toast',
     price: 599,
     image: 'plate__bacon-eggs.png',
@@ -28,6 +32,7 @@ export const menuItems = [
     count: 0
   },
   {
+    id: 5,
     name: 'Chicken Salad with Parmesan',
     price: 698,
     image: 'plate__chicken-salad.png',
@@ -35,6 +40,7 @@ export const menuItems = [
     count: 0
   },
   {
+    id: 6,
     name: 'Fish Sticks and Fries',
     price: 634,
     image: 'plate__fish-sticks-fries.png',

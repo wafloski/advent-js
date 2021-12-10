@@ -124,6 +124,7 @@ export const List = styled.ul`
     justify-content: center;
     gap: 10px;
     transition: .25s;
+    margin-top: 10px;
     
     &:not(.in-cart):hover {
       opacity: .5;
@@ -162,7 +163,6 @@ export const Price = styled.span`
   line-height: 1;
   font-weight: bold;
   margin-left: auto;
-  margin-bottom: 10px;
   display: inline-block;
 `;
 
